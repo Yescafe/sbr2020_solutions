@@ -1,0 +1,5 @@
+# macOS file cache
+.DS_Store
+
+# debug files
+*.dSYM/
