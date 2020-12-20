@@ -1,48 +1,43 @@
 #include <iostream>
+#include <string>
 using namespace std;
 
 int main()
 {
     int n;
-    while (cin >> n) {
-        if (n == 0) break;
-        while (n--) {
-            string str;
-            cin >> str;
-            if (str.size() == 1) {
-                cout << str << endl;
-                continue;
-            }
-            int i = 0;
-            int max_len = 0;
-            int p1 = -1, p2 = -1;
-            while (i != str.size()) {
-                int j = i + 1;
-                while (j != str.size()) {
-                    int len = 0;
-                    for (int ii = i, jj = j; str[ii] == str[jj]; ++ii, ++jj) {
-                        ++len;
+    cin >> n;
+    while (n--) {
+        string l;
+        // ap: 目标串 1 的起始位置
+        // ap2: 目标串 2 的起始位置
+        // al: 目标串的长度
+        int ap, al, ap2;
+        ap = al = ap2 =  0;
+        cin >> l;
+        for (int st = 0; st < l.size(); ++st) {
+            int cl = 0;
+            for (int ed = st + 1; ed < l.size() && st + cl < ed; ) {
+                if (l[st + cl] == l[ed + cl]) {
+                    ++cl;
+                    if (cl > al) {
+                        al = cl;
+                        ap = st;
+                        ap2 = ed;
                     }
-                    if (len > max_len) {
-                        max_len = len;
-                        p1 = i;
-                        p2 = j;
-                    }
-                    ++j;
+                } else {
+                    cl = 0;
+                    ++ed;
                 }
-                ++i;
             }
-            if (max_len == 0) {
-                cout << str << endl;
-            } else {
-                for (int i = 0; i < str.size(); ++i) {
-                    if ((i >= p1 && i < p1 + max_len) || (i >= p2 && i < p2 + max_len))
-                        continue;
-                    else
-                        cout << str[i];
-                }
-                cout << endl;
+        }
+        if (al != 0) {
+            for (int i = 0; i < l.size(); ++i) {
+                if ((i >= ap && i < ap + al) || (i >= ap2 && i < ap2 + al));
+                else cout << l[i];
             }
+            endl(cout);
+        } else {
+            cout << l << endl;
         }
     }
     return 0;

@@ -1,49 +1,49 @@
 #include <stdio.h>
 #include <string.h>
+#include <stddef.h>
 
 int main(void)
 {
     int n;
-    while (~scanf("%d", &n)) {
-        if (n == 0) break;
-        while (n--) {
-            char str[110];
-            scanf("%s", str);
-            const int len = strlen(str);
-            if (len == 1) {
-                puts(str);
-                continue;
-            }
-            int i = 0;
-            int max_len = 0;
-            int p1 = -1, p2 = -1;
-            while (i != len) {
-                int j = i + 1;
-                while (j != len) {
-                    int len = 0;
-                    for (int ii = i, jj = j; str[ii] == str[jj]; ++ii, ++jj) {
-                        ++len;
+    scanf("%d", &n);
+    getchar();         // newline eater
+    while (n--) {
+        char l[200];
+        // ap: 目标串 1 的起始位置
+        // ap2: 目标串 2 的起始位置
+        // al: 目标串的长度
+        int ap, al, ap2;
+        ap = al = ap2 =  0;
+        fgets(l, 200, stdin);
+        size_t len = strlen(l);
+        while (l[len - 1] == '\n') {
+            l[len - 1] = '\0';
+            --len;
+        }
+        for (int st = 0; st < len; ++st) {
+            int cl = 0;
+            for (int ed = st + 1; ed < len && st + cl < ed; ) {
+                if (l[st + cl] == l[ed + cl]) {
+                    ++cl;
+                    if (cl > al) {
+                        al = cl;
+                        ap = st;
+                        ap2 = ed;
                     }
-                    if (len > max_len) {
-                        max_len = len;
-                        p1 = i;
-                        p2 = j;
-                    }
-                    ++j;
+                } else {
+                    cl = 0;
+                    ++ed;
                 }
-                ++i;
             }
-            if (max_len == 0) {
-                puts(str);
-            } else {
-                for (int i = 0; i < len; ++i) {
-                    if ((i >= p1 && i < p1 + max_len) || (i >= p2 && i < p2 + max_len))
-                        continue;
-                    else
-                        putchar(str[i]);
-                }
-                putchar('\n');
+        }
+        if (al != 0) {
+            for (int i = 0; i < len; ++i) {
+                if ((i >= ap && i < ap + al) || (i >= ap2 && i < ap2 + al));
+                else putchar(l[i]);
             }
+            putchar('\n');
+        } else {
+            puts(l);
         }
     }
     return 0;
