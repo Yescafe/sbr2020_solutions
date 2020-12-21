@@ -4,17 +4,17 @@ static int absi(int n) {
     return n < 0 ? -n : n;
 }
 
-int main(void)
+int main()
 {
-    int a, b;
+    int s, b;
     char op;
-    while (~scanf("%d%c%d", &a, &op, &b)) {
-        int res;
+    scanf("%d", &s);
+    while (~scanf("%c%d", &op, &b)) {
         switch (op) {
-          case '+': res = absi(a + b); break;
-          case '-': res = absi(a - b); break;
+          case '+': s += b; break;
+          case '-': s -= b; break;
         }
-        printf("%d\n", res);
     }
+    printf("%d\n", absi(s));
     return 0;
 }

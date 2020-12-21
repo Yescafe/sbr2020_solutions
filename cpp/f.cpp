@@ -7,15 +7,15 @@ static int absi(int n) {
 
 int main()
 {
-    int a, b;
+    int s, b;
     char op;
-    while (cin >> a >> op >> b) {
-        int res;
+    cin >> s;
+    while (cin >> op >> b) {
         switch (op) {
-          case '+': res = absi(a + b); break;
-          case '-': res = absi(a - b); break;
+          case '+': s += b; break;
+          case '-': s -= b; break;
         }
-        cout << res << endl;
     }
+    cout << absi(s) << endl;
     return 0;
 }
