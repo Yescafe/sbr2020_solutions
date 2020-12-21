@@ -6,3 +6,6 @@
 
 # Makefile ouput binary files
 bin
+
+# VSCode config directory
+.vscode
